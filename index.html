@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background: #007bff;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+      background: #fff;
+      color: #007bff;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .post {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .post h2 {
+      margin-top: 0;
+    }
+
+    .post p {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Personal Blog</h1>
+    <nav>
+      <button class="btn" onclick="showPosts()">Home</button>
+      <button class="btn" onclick="addPost()">Add Post</button>
+      <button class="btn" onclick="aboutPage()">About</button>
+    </nav>
+  </header>
+
+  <div class="container" id="content">
+    <!-- Posts will load dynamically here -->
+  </div>
+
+  <script>
+    // Sample JSON data
+    let posts = [
+      { title: "Welcome to My Blog", content: "This is your first post. You can add more dynamically." },
+      { title: "Why Blogging?", content: "Blogging is a great way to share your thoughts with the world." }
+    ];
+
+    // Render posts dynamically
+    function showPosts() {
+      const content = document.getElementById("content");
+      content.innerHTML = "";
+      posts.forEach(post => {
+        const postDiv = document.createElement("div");
+        postDiv.classList.add("post");
+        postDiv.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
+        content.appendChild(postDiv);
+      });
+    }
+
+    // Add a new post (demo version)
+    function addPost() {
+      const title = prompt("Enter post title:");
+      const contentText = prompt("Enter post content:");
+      if (title && contentText) {
+        posts.push({ title: title, content: contentText });
+        showPosts();
+      }
+    }
+
+    // About page content
+    function aboutPage() {
+      const content = document.getElementById("content");
+      content.innerHTML = `
+        <div class="post">
+          <h2>About This Blog</h2>
+          <p>This is a simple, responsive personal blog template built with HTML, CSS, and JavaScript. 
+          Posts are rendered dynamically from JSON/local data.</p>
+        </div>
+      `;
+    }
+
+    // Load posts on first visit
+    window.onload = showPosts;
+  </script>
+</body>
+</html>
